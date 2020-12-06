@@ -7,8 +7,8 @@ fn two_sum(numbers: &[i32]) {
         diffs.insert(2020 - v, i);
     }
 
-    for (i, &v) in numbers.iter().enumerate() {
-        if let Some(&j) = diffs.get(&v) {
+    for (i, v) in numbers.iter().enumerate() {
+        if let Some(&j) = diffs.get(v) {
             println!("{:?}, {:?}, {:?}", numbers[i], numbers[j], numbers[i]*numbers[j]);
         }
     }

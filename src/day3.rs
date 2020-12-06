@@ -2,7 +2,7 @@ use crate::tools;
 
 pub fn solve() {
     let mut slopes = vec![(1, 1, 0), (3, 1, 0), (5, 1, 0), (7, 1, 0), (1, 2, 0)];
-    let answer = tools::read_lines("./input/p3.txt")
+    let answer = tools::read_lines("./input/day3.txt")
         .unwrap()
         .enumerate()
         .fold(vec![0, 0, 0, 0, 0], |acc, (i, line)| {

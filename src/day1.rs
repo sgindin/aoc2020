@@ -37,7 +37,7 @@ fn three_sum(mut numbers: Vec<i32>) {
 }
 
 pub(crate) fn solve() {
-    let numbers = tools::read_lines("./input/p1.txt")
+    let numbers = tools::read_lines("./input/day1.txt")
         .unwrap()
         .map(|x| x.unwrap().parse::<i32>().unwrap())
         .collect::<Vec<_>>();

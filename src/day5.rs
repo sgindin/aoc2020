@@ -28,7 +28,7 @@ fn get_seat_id(code: &str) -> usize {
 pub fn solve() {
     const MAX_ID: usize = 127*8 + 7;
     let mut ids = vec![false; MAX_ID + 1];
-    tools::read_lines("./input/p5.txt")
+    tools::read_lines("./input/day5.txt")
         .unwrap()
         .map(|line| get_seat_id(line.unwrap().as_str()))
         .for_each(|id| ids[id] = true);

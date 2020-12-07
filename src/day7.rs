@@ -7,6 +7,8 @@ lazy_static! {
     static ref CONTAINS_RE: Regex = Regex::new(r"(no|[\d+]) ([a-z]+\s[a-z]+) bags?[,\.]").unwrap();
 }
 
+const TARGET_COLOR: &'static str = "shiny gold";
+
 pub fn solve() {
     let mut contained_by: HashMap<String, HashSet<String>> = HashMap::new();
     let mut contains: HashMap<String, Vec<(String, i32)>> = HashMap::new();
@@ -34,8 +36,9 @@ pub fn solve() {
                     }
                 });
         });
-    let mut colors_to_check = vec!["shiny gold"].iter().cloned().collect::<HashSet<_>>();
-    let mut containing_colors: HashSet<&str> = HashSet::new();
+
+    let mut colors_to_check = vec![TARGET_COLOR].iter().cloned().collect::<HashSet<_>>();
+    let mut containing_colors = HashSet::new();
     while !colors_to_check.is_empty() {
         let color = colors_to_check.iter().next().cloned().unwrap();
         colors_to_check.remove(color);
@@ -44,13 +47,14 @@ pub fn solve() {
             colors.iter().for_each(|c| { colors_to_check.insert(c.as_str()); } );
         }
     }
+    let containing_bags_count = containing_colors.len() - 1; // subtract 1 for TARGET_COLOR
 
     fn count_nested_bags(color: &str, contains: &HashMap<String, Vec<(String, i32)>>) -> i32 {
         contains.get(color).unwrap().iter()
             .map(|(c, a)| (1 + count_nested_bags(c, contains)) * a)
             .sum()
     }
-    let nested_bags_count = count_nested_bags("shiny gold", &contains);
+    let nested_bags_count = count_nested_bags(TARGET_COLOR, &contains);
 
-    println!("{}, {}", containing_colors.len() - 1, nested_bags_count)
+    println!("{}, {}", containing_bags_count, nested_bags_count)
 }

@@ -8,13 +8,13 @@ lazy_static! {
     static ref BYR_RN: std::ops::RangeInclusive<u32> = 1920..=2002;
     static ref IYR_RN: std::ops::RangeInclusive<u32> = 2010..=2020;
     static ref EYR_RN: std::ops::RangeInclusive<u32> = 2020..=2030;
-    static ref HGT_RE: Regex = Regex::new(r"([0-9]+)(cm|in)").unwrap();
+    static ref HGT_RE: Regex = Regex::new(r"^([0-9]+)(cm|in)$").unwrap();
     static ref HGT_RN: HashMap<&'static str, std::ops::RangeInclusive<u32>> =
         [("cm", 150..=193), ("in", 59..=76)].iter().cloned().collect();
-    static ref HCL_RE: Regex = Regex::new(r"#[0-9a-f]{6}").unwrap();
+    static ref HCL_RE: Regex = Regex::new(r"^#[0-9a-f]{6}$").unwrap();
     static ref ECL_SET: HashSet<&'static str> =
         ["amb", "blu", "brn", "gry", "grn", "hzl", "oth"].iter().cloned().collect();
-    static ref PID_RE: Regex = Regex::new(r"[0-9]{9}").unwrap();
+    static ref PID_RE: Regex = Regex::new(r"^[0-9]{9}$").unwrap();
 }
 
 fn is_valid(key: &str, value: &str) -> bool {
@@ -72,8 +72,10 @@ pub fn solve() {
                 }
                 passport.clear();
             } else {
+                if !passport.is_empty() {
+                    passport.push(' ');
+                }
                 passport.push_str(&line);
-                passport.push(' ');
             }
             (valid_count_1, valid_count_2, passport)
         });

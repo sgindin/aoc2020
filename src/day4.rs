@@ -57,10 +57,8 @@ pub fn solve() {
     let (valid_count_1, valid_count_2, _) = tools::read_lines("./input/day4.txt")
         .unwrap()
         .chain(std::iter::once(Ok(String::default())))
-        .fold((0, 0, String::default()), |(mut valid_count_1,
-                                                  mut valid_count_2,
-                                                  mut passport),
-                                                  line| {
+        .fold((0, 0, String::default()),
+              |(mut valid_count_1, mut valid_count_2, mut passport), line| {
             let line = line.unwrap();
             if line.is_empty() {
                 let (has_required_keys, all_values_are_valid) = check(&passport);

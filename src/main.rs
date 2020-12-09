@@ -7,6 +7,7 @@ mod day5;
 mod day6;
 mod day7;
 mod day8;
+mod day9;
 
 extern crate regex;
 
@@ -39,4 +40,7 @@ fn main() {
 
     println!(format_title!(), "p8");
     day8::solve();
+
+    println!(format_title!(), "p9");
+    day9::solve();
 }

@@ -9,7 +9,8 @@ fn two_sum(numbers: &[i32]) {
 
     for (i, v) in numbers.iter().enumerate() {
         if let Some(&j) = diffs.get(v) {
-            println!("{:?}, {:?}, {:?}", numbers[i], numbers[j], numbers[i]*numbers[j]);
+            print!("{}", numbers[i]*numbers[j]);
+            return;
         }
     }
 }
@@ -26,9 +27,7 @@ fn three_sum(mut numbers: Vec<i32>) {
             } else if sum < 2020 {
                 low += 1;
             } else {
-                println!("{:?}, {:?}, {:?} => {:?}",
-                         numbers[low], numbers[i], numbers[high],
-                         numbers[low]*numbers[i]*numbers[high]);
+                println!(", {}", numbers[low]*numbers[i]*numbers[high]);
                 high -= 1;
                 low += 1;
             }

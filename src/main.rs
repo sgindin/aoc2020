@@ -9,13 +9,16 @@ mod day7;
 mod day8;
 mod day9;
 mod day10;
+mod day11;
 
 extern crate regex;
 
 #[macro_use]
 extern crate lazy_static;
 
-macro_rules! format_title { () => { "\n=====================\nDay {} (part1, part2)\n=====================" }; }
+macro_rules! title_format {
+    () => { "\n=====================\nDay {} (part1, part2)\n=====================" };
+}
 
 fn main() {
     let puzzles = [
@@ -29,10 +32,11 @@ fn main() {
         day8::solve,
         day9::solve,
         day10::solve,
+        day11::solve,
     ];
 
     puzzles.iter().enumerate().for_each(|(i, solve)| {
-        println!(format_title!(), i + 1);
+        println!(title_format!(), i + 1);
         solve();
     });
 }

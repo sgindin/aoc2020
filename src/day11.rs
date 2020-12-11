@@ -1,7 +1,7 @@
 use crate::tools;
 
-fn search_direction(grid: &Vec<Vec<char>>, mut i: i64, mut j: i64,
-                    i_inc: i64, j_inc: i64, go_far: bool) -> u32 {
+fn count_occupied_neighbors_in_direction(grid: &Vec<Vec<char>>, mut i: i64, mut j: i64,
+                                         i_inc: i64, j_inc: i64, go_far: bool) -> u32 {
     let height = grid.len() as i64;
     let width = grid[0].len() as i64;
     i += i_inc;
@@ -25,14 +25,14 @@ fn search_direction(grid: &Vec<Vec<char>>, mut i: i64, mut j: i64,
 fn count_occupied_neighbors(grid: &Vec<Vec<char>>, i: usize, j: usize, go_far: bool) -> u32 {
     let i = i as i64;
     let j = j as i64;
-    search_direction(grid, i, j, -1, 0, go_far)    // up
-    + search_direction(grid, i, j, -1, -1, go_far) // up-left
-    + search_direction(grid, i, j, -1, 1, go_far)  // up-right
-    + search_direction(grid, i, j, 1, 0, go_far)   // down
-    + search_direction(grid, i, j, 1, -1, go_far)  // down-left
-    + search_direction(grid, i, j, 1, 1, go_far)   // down-right
-    + search_direction(grid, i, j, 0, -1, go_far)  // left
-    + search_direction(grid, i, j, 0, 1, go_far)   // right
+      count_occupied_neighbors_in_direction(grid, i, j, -1, 0, go_far)  // up
+    + count_occupied_neighbors_in_direction(grid, i, j, -1, -1, go_far) // up-left
+    + count_occupied_neighbors_in_direction(grid, i, j, -1, 1, go_far)  // up-right
+    + count_occupied_neighbors_in_direction(grid, i, j, 1, 0, go_far)   // down
+    + count_occupied_neighbors_in_direction(grid, i, j, 1, -1, go_far)  // down-left
+    + count_occupied_neighbors_in_direction(grid, i, j, 1, 1, go_far)   // down-right
+    + count_occupied_neighbors_in_direction(grid, i, j, 0, -1, go_far)  // left
+    + count_occupied_neighbors_in_direction(grid, i, j, 0, 1, go_far)   // right
 }
 
 fn count_stable_occupied_neighbors(grid: &Vec<Vec<char>>, go_far: bool, occupation_limit: u32) -> u32 {

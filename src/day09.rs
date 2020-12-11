@@ -68,7 +68,7 @@ fn solve_part2(numbers: &Vec<u64>, target: u64) -> Option<u64> {
 }
 
 pub fn solve() {
-    let numbers = tools::read_lines("./input/day9.txt")
+    let numbers = tools::read_lines("./input/day09.txt")
         .unwrap()
         .map(|line| line.unwrap().parse::<u64>().unwrap())
         .collect::<Vec<_>>();

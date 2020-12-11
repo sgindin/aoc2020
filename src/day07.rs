@@ -12,7 +12,7 @@ const TARGET_COLOR: &'static str = "shiny gold";
 pub fn solve() {
     let mut contained_by: HashMap<String, HashSet<String>> = HashMap::new();
     let mut contains: HashMap<String, Vec<(String, i32)>> = HashMap::new();
-    tools::read_lines("./input/day7.txt")
+    tools::read_lines("./input/day07.txt")
         .unwrap()
         .for_each(|line| {
             let line = line.unwrap();

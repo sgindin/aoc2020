@@ -83,5 +83,5 @@ pub fn solve() {
     let part1 = count_stable_occupied_neighbors(&grid, false, 4);
     let part2 = count_stable_occupied_neighbors(&grid, true, 5);
 
-    print!("{}, {}", part1, part2)
+    println!("{}, {}", part1, part2)
 }

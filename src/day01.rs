@@ -6,7 +6,6 @@ fn two_sum(numbers: &[i32]) {
     for (i, &v) in numbers.iter().enumerate() {
         diffs.insert(2020 - v, i);
     }
-
     for (i, v) in numbers.iter().enumerate() {
         if let Some(&j) = diffs.get(v) {
             print!("{}", numbers[i]*numbers[j]);
@@ -28,19 +27,17 @@ fn three_sum(mut numbers: Vec<i32>) {
                 low += 1;
             } else {
                 println!(", {}", numbers[low]*numbers[i]*numbers[high]);
-                high -= 1;
-                low += 1;
+                return
             }
         }
     }
 }
 
 pub(crate) fn solve() {
-    let numbers = tools::read_lines("./input/day1.txt")
+    let numbers = tools::read_lines("./input/day01.txt")
         .unwrap()
         .map(|x| x.unwrap().parse::<i32>().unwrap())
         .collect::<Vec<_>>();
-
     two_sum(&numbers);
     three_sum(numbers);
 }

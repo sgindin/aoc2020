@@ -54,7 +54,7 @@ fn check(passport: &str) -> (bool, bool) {
 }
 
 pub fn solve() {
-    let (valid_count_1, valid_count_2, _) = tools::read_lines("./input/day4.txt")
+    let (valid_count_1, valid_count_2, _) = tools::read_lines("./input/day04.txt")
         .unwrap()
         .chain(std::iter::once(Ok(String::default())))
         .fold((0, 0, String::default()),

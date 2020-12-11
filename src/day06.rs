@@ -2,7 +2,7 @@ use crate::tools;
 
 pub fn solve() {
     let (total_anyone_yes_count, total_everyone_yes_count, _) =
-        tools::read_lines("./input/day6.txt")
+        tools::read_lines("./input/day06.txt")
         .unwrap()
         .chain(std::iter::once(Ok(String::default())))
         .fold((0, 0, vec![(false, true); 26]), |(mut group_anyone_yes_count,

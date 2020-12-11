@@ -28,7 +28,7 @@ struct Instruction {
 
 pub fn solve() {
     // Parse the program
-    let mut program = tools::read_lines("./input/day8.txt")
+    let mut program = tools::read_lines("./input/day08.txt")
         .unwrap()
         .map(|line| {
             let line = line.unwrap();

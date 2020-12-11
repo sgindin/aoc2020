@@ -17,7 +17,7 @@ pub fn solve() {
     let mut n_minus_1 =
         n_minus_2
         + if numbers[2] - numbers[0] <=3 {1} else {0}
-        + if numbers [2] == 3 {1} else {0};
+        + if numbers[2] == 3 {1} else {0};
     let mut n = 0;
 
     for i in 0..numbers.len() {

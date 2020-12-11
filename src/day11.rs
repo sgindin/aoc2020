@@ -10,14 +10,9 @@ fn count_occupied_neighbors_in_direction(grid: &Vec<Vec<char>>, mut i: i64, mut 
         match grid[i as usize][j as usize] {
             '#' => return 1,
             'L' => return 0,
-            '.' => (),
+            '.' => if go_far { i += i_inc; j += j_inc; } else { return 0 },
             _ => unreachable!(),
         }
-        if !go_far {
-            break;
-        }
-        i += i_inc;
-        j += j_inc;
     }
     0
 }

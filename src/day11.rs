@@ -23,9 +23,6 @@ fn search_direction(grid: &Vec<Vec<char>>, mut i: i64, mut j: i64,
 }
 
 fn count_occupied_neighbors(grid: &Vec<Vec<char>>, i: usize, j: usize, go_far: bool) -> u32 {
-    let height = grid.len();
-    let width = grid[0].len();
-    assert!(i < height && j < width);
     let i = i as i64;
     let j = j as i64;
     search_direction(grid, i, j, -1, 0, go_far)    // up

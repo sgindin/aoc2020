@@ -39,7 +39,7 @@ impl Bearings {
         };
     }
 
-    pub fn advance_with_heading(&mut self, heading: i32, distance: i32) {
+    pub fn shift_in_direction(&mut self, heading: i32, distance: i32) {
         assert!(heading == 0 || heading == 90 || heading == 180 || heading == 270);
         match heading {
             0 =>   self.lon += distance, // east
@@ -50,11 +50,11 @@ impl Bearings {
         };
     }
 
-    pub fn advance(&mut self, distance: i32) {
-        self.advance_with_heading(self.heading, distance);
+    pub fn shift(&mut self, distance: i32) {
+        self.shift_in_direction(self.heading, distance);
     }
 
-    pub fn move_to(&mut self, waypoint: &Bearings, repeat: i32) {
+    pub fn shift_to_waypoint(&mut self, waypoint: &Bearings, repeat: i32) {
         self.lon += repeat * waypoint.lon;
         self.lat += repeat * waypoint.lat;
     }
@@ -74,24 +74,24 @@ pub fn solve() {
                   let parameter = line[1..].parse::<i32>().unwrap();
                   match command {
                       'E' => {
-                          ship1.advance_with_heading(0, parameter);
-                          waypoint.advance_with_heading(0, parameter);
+                          ship1.shift_in_direction(0, parameter);
+                          waypoint.shift_in_direction(0, parameter);
                       },
                       'N' => {
-                          ship1.advance_with_heading(90, parameter);
-                          waypoint.advance_with_heading(90, parameter);
+                          ship1.shift_in_direction(90, parameter);
+                          waypoint.shift_in_direction(90, parameter);
                       },
                       'W' => {
-                          ship1.advance_with_heading(180, parameter);
-                          waypoint.advance_with_heading(180, parameter);
+                          ship1.shift_in_direction(180, parameter);
+                          waypoint.shift_in_direction(180, parameter);
                       },
                       'S' => {
-                          ship1.advance_with_heading(270, parameter);
-                          waypoint.advance_with_heading(270, parameter);
+                          ship1.shift_in_direction(270, parameter);
+                          waypoint.shift_in_direction(270, parameter);
                       },
                       'F' => {
-                          ship1.advance(parameter);
-                          ship2.move_to(&waypoint, parameter);
+                          ship1.shift(parameter);
+                          ship2.shift_to_waypoint(&waypoint, parameter);
                       },
                       'L' => {
                           ship1.turn(false, parameter);

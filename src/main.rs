@@ -10,6 +10,7 @@ mod day08;
 mod day09;
 mod day10;
 mod day11;
+mod day12;
 
 extern crate regex;
 
@@ -33,6 +34,7 @@ fn main() {
         day09::solve,
         day10::solve,
         day11::solve,
+        day12::solve,
     ];
 
     puzzles.iter().enumerate().for_each(|(i, solve)| {

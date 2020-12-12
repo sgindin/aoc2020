@@ -1,4 +1,5 @@
 use crate::tools;
+use std::collections::HashMap;
 
 #[derive(Default)]
 struct Bearings {
@@ -7,21 +8,31 @@ struct Bearings {
     heading: i32,
 }
 
+lazy_static! {
+    static ref ANGLE_AS_CHAR: HashMap<i32, char> =
+        [(0, 'E'), (90, 'N'), (180, 'W'), (270, 'S')].iter().cloned().collect();
+}
+
 impl Bearings {
     pub fn new(lon: i32, lat: i32) -> Bearings {
         Bearings { lon, lat, heading: 0 }
     }
 
-    pub fn turn(&mut self, clockwise: bool, angle: i32) {
-        assert!(angle == 90 || angle == 180 || angle == 270);
-        self.heading = (360 + self.heading + if clockwise {-1} else {1} * angle).abs() % 360;
+    pub fn turn(&mut self, direction: char, angle: i32) {
+        let sign = match direction {
+            'L' => 1,
+            'R' => -1,
+            _ => unreachable!(),
+        };
+        self.heading = (360 + self.heading + sign * angle).abs() % 360;
     }
 
-    pub fn rotate(&mut self, clockwise: bool, angle: i32) {
-        let mut angle = angle;
-        if !clockwise {
-            angle = 360 - angle;
-        }
+    pub fn rotate(&mut self, direction: char, angle: i32) {
+        let angle = match direction {
+            'L' => 360 - angle,
+            'R' => angle,
+            _ => unreachable!(),
+        };
         match angle {
             90 => {
                 std::mem::swap(&mut self.lat, &mut self.lon);
@@ -39,19 +50,18 @@ impl Bearings {
         };
     }
 
-    pub fn shift_in_direction(&mut self, heading: i32, distance: i32) {
-        assert!(heading == 0 || heading == 90 || heading == 180 || heading == 270);
+    pub fn shift_in_direction(&mut self, heading: char, distance: i32) {
         match heading {
-            0 =>   self.lon += distance, // east
-            90 =>  self.lat += distance, // north
-            180 => self.lon -= distance, // west
-            270 => self.lat -= distance, // south
+            'E' => self.lon += distance,
+            'N' => self.lat += distance,
+            'W' => self.lon -= distance,
+            'S' => self.lat -= distance,
             _ => unreachable!(),
         };
     }
 
     pub fn shift(&mut self, distance: i32) {
-        self.shift_in_direction(self.heading, distance);
+        self.shift_in_direction(ANGLE_AS_CHAR[&self.heading], distance);
     }
 
     pub fn shift_to_waypoint(&mut self, waypoint: &Bearings, repeat: i32) {
@@ -73,33 +83,17 @@ pub fn solve() {
                   let command = line.chars().nth(0).unwrap();
                   let parameter = line[1..].parse::<i32>().unwrap();
                   match command {
-                      'E' => {
-                          ship1.shift_in_direction(0, parameter);
-                          waypoint.shift_in_direction(0, parameter);
-                      },
-                      'N' => {
-                          ship1.shift_in_direction(90, parameter);
-                          waypoint.shift_in_direction(90, parameter);
-                      },
-                      'W' => {
-                          ship1.shift_in_direction(180, parameter);
-                          waypoint.shift_in_direction(180, parameter);
-                      },
-                      'S' => {
-                          ship1.shift_in_direction(270, parameter);
-                          waypoint.shift_in_direction(270, parameter);
+                      'E'|'N'|'W'|'S' => {
+                          ship1.shift_in_direction(command, parameter);
+                          waypoint.shift_in_direction(command, parameter);
                       },
                       'F' => {
                           ship1.shift(parameter);
                           ship2.shift_to_waypoint(&waypoint, parameter);
                       },
-                      'L' => {
-                          ship1.turn(false, parameter);
-                          waypoint.rotate(false, parameter);
-                      },
-                      'R' => {
-                          ship1.turn(true, parameter);
-                          waypoint.rotate(true, parameter);
+                      'L'|'R' => {
+                          ship1.turn(command, parameter);
+                          waypoint.rotate(command, parameter);
                       },
                       _ => unreachable!(),
                   };

@@ -2,7 +2,7 @@ use crate::tools;
 use std::collections::HashMap;
 
 #[derive(Default)]
-struct Bearings {
+struct Position {
     lon: i32,
     lat: i32,
     heading: i32,
@@ -13,9 +13,9 @@ lazy_static! {
         [(0, 'E'), (90, 'N'), (180, 'W'), (270, 'S')].iter().cloned().collect();
 }
 
-impl Bearings {
-    pub fn new(lon: i32, lat: i32) -> Bearings {
-        Bearings { lon, lat, heading: 0 }
+impl Position {
+    pub fn new(lon: i32, lat: i32) -> Position {
+        Position { lon, lat, heading: 0 }
     }
 
     pub fn turn(&mut self, direction: char, angle: i32) {
@@ -64,7 +64,7 @@ impl Bearings {
         self.shift_in_direction(ANGLE_AS_CHAR[&self.heading], distance);
     }
 
-    pub fn shift_to_waypoint(&mut self, waypoint: &Bearings, repeat: i32) {
+    pub fn shift_to_waypoint(&mut self, waypoint: &Position, repeat: i32) {
         self.lon += repeat * waypoint.lon;
         self.lat += repeat * waypoint.lat;
     }
@@ -77,7 +77,7 @@ impl Bearings {
 pub fn solve() {
     let (ship1, ship2, _) = tools::read_lines("./input/day12.txt")
         .unwrap()
-        .fold((Bearings::default(), Bearings::default(), Bearings::new(10, 1)),
+        .fold((Position::default(), Position::default(), Position::new(10, 1)),
               |(mut ship1, mut ship2, mut waypoint), line| {
                   let line = line.unwrap();
                   let command = line.chars().nth(0).unwrap();

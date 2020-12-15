@@ -1,4 +1,4 @@
-const INPUT: [u32; 6] = [0u32, 13, 1, 8, 6, 15];
+const INPUT: [u32; 6] = [0, 13, 1, 8, 6, 15];
 const PART1_GOAL: usize = 2020;
 const PART2_GOAL: usize = 30000000;
 

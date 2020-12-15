@@ -3,7 +3,7 @@ const PART1_GOAL: usize = 2020;
 const PART2_GOAL: usize = 30000000;
 
 pub fn solve() {
-    let mut last_spoken_number = *input.last().unwrap();
+    let mut last_spoken_number = *INPUT.last().unwrap();
     let mut spoken_numbers = vec![0u32; u32::max_value() as usize + 1];
     INPUT.iter().enumerate()
         .for_each(|(i, &n)| { spoken_numbers[n as usize] = i as u32 + 1; });
@@ -24,7 +24,7 @@ pub fn solve() {
         print!("{}", last_spoken_number);
     };
 
-    play(input.len(), PART1_GOAL);
+    play(INPUT.len(), PART1_GOAL);
     print!(", ");
     play(PART1_GOAL, PART2_GOAL);
     println!();
